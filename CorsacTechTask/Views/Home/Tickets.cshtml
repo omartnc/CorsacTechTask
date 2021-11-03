@@ -20,9 +20,9 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            @foreach (var Ticket in Model)
-            {
+        @foreach (var Ticket in Model)
+        {
+            <tr>
                 <td>@Ticket.CustomerName</td>
                 <td>@Ticket.CustomerEmail</td>
                 <td>@Ticket.Title</td>
@@ -31,8 +31,8 @@
                 <td>@Ticket.ShortContent</td>
                 <td>@Ticket.AssignedUser</td>
                 <td><a href="@Url.Action("Ticket","Home",new {code=Ticket.UID })" class="btn btn-primary">Update</a></td>
-            }
-        </tr>
+            </tr>
+        }
     </tbody>
 </table>
 @section Scripts{
