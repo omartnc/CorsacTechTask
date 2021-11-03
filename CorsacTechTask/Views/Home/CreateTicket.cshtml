@@ -1,0 +1,64 @@
+﻿@model CorsacTechTask.ViewModels.TicketViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CreateTicket</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+
+    <section class="w-100 p-4 d-flex justify-content-center pb-4">
+        <form method="post" asp-action="CreateTicket">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-outline mb-4">
+                <label class="form-label" asp-for="CustomerName">Name</label>
+                <input asp-for="CustomerName" class="form-control" />
+                <span asp-validation-for="CustomerName" class="text-danger"></span>
+            </div>
+
+            <div class="form-outline mb-4">
+                <label class="form-label" asp-for="CustomerEmail">Email</label>
+                <input type="email" asp-for="CustomerEmail" class="form-control" />
+                <span asp-validation-for="CustomerEmail" class="text-danger"></span>
+            </div>
+
+            <div class="form-outline mb-12">
+                <label class="form-label" asp-for="Title">Title</label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-outline mb-12">
+                <label class="form-label" asp-for="ShortContent">Short Content</label>
+                <input asp-for="ShortContent" class="form-control" />
+                <span asp-validation-for="ShortContent" class="text-danger"></span>
+            </div>
+            <div class="form-outline mb-12">
+                <label class="form-label" asp-for="Content">Content</label>
+                <textarea asp-for="Content" class="form-control"></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+
+            <div class="text-center text-lg-start mt-4 pt-2">
+                <button type="submit" class="btn btn-primary btn-lg"
+                        style="padding-left: 2.5rem; padding-right: 2.5rem;">
+                    Send
+                </button>
+
+            </div>
+        </form>
+    </section>
+     
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

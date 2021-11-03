@@ -1,0 +1,45 @@
+﻿@model List<CorsacTechTask.ViewModels.TicketsViewModel>
+@{
+    ViewData["Title"] = "Tickets";
+}
+@section Styles{
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" />
+
+}
+<table id="tableTickets" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+        <tr>
+            <th>Customer Name</th>
+            <th>Customer Email</th>
+            <th>Title</th>
+            <th>Ticket Code</th>
+            <th>Ticket Status</th>
+            <th>Short Contente</th>
+            <th>Assigned User</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            @foreach (var Ticket in Model)
+            {
+                <td>@Ticket.CustomerName</td>
+                <td>@Ticket.CustomerEmail</td>
+                <td>@Ticket.Title</td>
+                <td>@Ticket.UID</td>
+                <td>@Ticket.TicketStatusName</td>
+                <td>@Ticket.ShortContent</td>
+                <td>@Ticket.AssignedUser</td>
+                <td><a href="@Url.Action("Ticket","Home",new {code=Ticket.UID })" class="btn btn-primary">Update</a></td>
+            }
+        </tr>
+    </tbody>
+</table>
+@section Scripts{
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#tableTickets').DataTable();
+        });
+    </script>
+}

@@ -1,0 +1,100 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using CorsacTechTask.DbModels
+@using  CorsacTechTask.Helpers
+@inject SignInManager<IdentityUser> SignInManager
+@model CorsacTechTask.ViewModels.TicketContentsViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Ticket</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <ul class="list-group">
+        <li class="list-group-item text-center">Ticket No :@Model.UID | @Model.CustomerName | @Model.CustomerEmail</li>
+        <li class="list-group-item text-center">Ticket Title : @Model.Title</li>
+        @foreach (var Content in Model.Contents)
+        {
+            <li class="list-group-item">@Content</li>
+
+        }
+    </ul>
+    <section class="w-100 p-4 d-flex justify-content-center pb-4">
+        <form method="post" asp-action="UpdateTicket">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="UID" value="@Model.UID" />
+
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <div class="form-outline mb-12">
+                    <label class="form-label" asp-for="SelectedUserId">User</label>
+                    <select class="form-control" asp-for="SelectedUserId" value="@Model.SelectedUserId">
+                        <option    >N/A</option>
+                        @foreach (var user in Model.Users)
+                        {
+                            if (user.Id == Model.SelectedUserId)
+                            {
+                                <option selected value="@user.Id">@user.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@user.Id">@user.Name</option>
+                            }
+
+                        }
+                    </select>
+                </div>
+                <div class="form-outline mb-12">
+                    <label class="form-label" asp-for="SelectedTicketStatus">Ticket Status</label>
+                    <select class="form-control" asp-for="SelectedTicketStatus" value="@Model.SelectedTicketStatus">
+                        @foreach (var TicketStsEnum in Enum.GetValues(typeof(TicketStatusEnum)).Cast<TicketStatusEnum>())
+                        {
+                            if (TicketStsEnum == Model.SelectedTicketStatus)
+                            {
+                                <option selected value="@TicketStsEnum">@EnumExtensions.GetDisplayName(TicketStsEnum)</option>
+                            }
+                            else
+                            {
+                                <option value="@TicketStsEnum">@EnumExtensions.GetDisplayName(TicketStsEnum)</option>
+                            }
+
+                        }
+                    </select>
+                </div>
+            }
+            <div class="form-outline mb-12">
+                <label class="form-label" asp-for="Content">Content</label>
+                <textarea asp-for="Content" class="form-control"></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+
+            <div class="text-center text-lg-start mt-4 pt-2">
+                <button type="submit" class="btn btn-primary btn-lg"
+                        style="padding-left: 2.5rem; padding-right: 2.5rem;">
+                    Send
+                </button>
+
+            </div>
+        </form>
+    </section>
+
+
+
+
+
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>
